@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Nexspire Media"
+version = "1.0.0"
+id = "artifacts/nexspire-media"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24272
+
+[services.development]
+run = "pnpm --filter @workspace/nexspire-media run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/nexspire-media", "run", "build" ]
+publicDir = "artifacts/nexspire-media/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24272"
+BASE_PATH = "/"
